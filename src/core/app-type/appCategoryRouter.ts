@@ -1,10 +1,9 @@
 import { createApiResponse } from "@/api-docs/openAPIResponseBuilders";
-import { validateRequest } from "@/common/utils/httpHandlers";
 import { OpenAPIRegistry } from "@asteasolutions/zod-to-openapi";
 import express, { type Router } from "express";
 import { z } from "zod";
 import { appCategoryController } from "./controller/AppCategoryController";
-import { AppCategorySchema, CreateAppCategorySchema, GetAppCategorySchema } from "./models/AppCategorySchema";
+import { AppCategorySchema, GetAppCategorySchema } from "./models/AppCategorySchema";
 
 export const appCategoryRegistry = new OpenAPIRegistry();
 export const appCategoryRouter: Router = express.Router();
