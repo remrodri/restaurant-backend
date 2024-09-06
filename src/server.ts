@@ -12,7 +12,6 @@ import requestLogger from "@/common/middleware/requestLogger";
 import { env } from "@/common/utils/envConfig";
 import router from "./APIRoutes";
 import connectDB from "./config/database";
-import { appCategoryRouter } from "./core/app-type/appCategoryRouter";
 
 const logger = pino({ name: "server start" });
 
