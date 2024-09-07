@@ -13,7 +13,7 @@ import { env } from "@/common/utils/envConfig";
 import router from "./APIRoutes";
 import connectDB from "./config/database";
 
-const logger = pino({ name: "server start" });
+const logger = pino({ name: "server start", level: "debug" });
 
 connectDB();
 

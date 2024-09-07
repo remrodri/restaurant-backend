@@ -22,7 +22,7 @@ export class AppCategoryRepository implements IAppCategoryRepository {
     logger.info(typeof result);
     return result;
   }
-  public async createAsync(appCategory: IAppCategory): Promise<IAppCategory | null> {
+  public async createAsync(appCategory: IAppCategory): Promise<IAppCategory> {
     const newAppCategory = new AppCategoryModel(appCategory);
     return await newAppCategory.save();
   }
