@@ -16,7 +16,7 @@ import connectDB from "./config/database";
 const logger = pino({ name: "server start", level: "debug" });
 
 connectDB()
-  .then((r) => logger.info("Connected to the DB"))
+  .then(() => logger.info("Connected to the DB"))
   .catch((ex) => logger.error(`Error connecting to the DB. ${ex.message}`));
 
 const app: Express = express();
