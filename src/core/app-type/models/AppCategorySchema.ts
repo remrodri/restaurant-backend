@@ -21,3 +21,7 @@ export const CreateAppCategorySchema = z.object({
   body: z.object({ name: z.string() }),
   // name:commonValidations.name
 });
+
+export const deleteAppCategory = z.object({
+  params: z.object({ id: commonValidations.id }),
+});

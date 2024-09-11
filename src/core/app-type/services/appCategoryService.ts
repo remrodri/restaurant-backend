@@ -3,14 +3,11 @@ import { logger } from "@/server";
 import { StatusCodes } from "http-status-codes";
 import type { IAppCategory } from "../interface/IAppCategory";
 import { type AppCategory, AppCategorySchema } from "../models/AppCategorySchema";
-import { appCategoryRepository } from "../repository/appCategoryRepository";
+import { AppCategoryRepository, appCategoryRepository } from "../repository/appCategoryRepository";
 import type { IAppCategoryService } from "./IAppCategoryService";
 
 export class AppCategoryService implements IAppCategoryService {
   updateAppCategory(id: string, appCategory: IAppCategory): Promise<IAppCategory | null> {
-    throw new Error("Method not implemented.");
-  }
-  deleteAppCategory(id: string): Promise<IAppCategory | null> {
     throw new Error("Method not implemented.");
   }
 
@@ -58,6 +55,21 @@ export class AppCategoryService implements IAppCategoryService {
         null,
         StatusCodes.INTERNAL_SERVER_ERROR,
       );
+    }
+  }
+
+  public async deleteAppCategory(id: string): Promise<ServiceResponse<IAppCategory | null>> {
+    try {
+      const deletedAppCategory = await appCategoryRepository.deleteAsync(id);
+      if (!deletedAppCategory) {
+        return ServiceResponse.failure(`AppCategory with id ${id} not found`, null, StatusCodes.NOT_FOUND);
+      }
+      logger.info(`AppCategory with id ${id} deleted succesfully`);
+      return ServiceResponse.success("AppCategory deleted succesfully", deletedAppCategory);
+    } catch (ex) {
+      const errorMessage = `Error deleting appCategory ${id}: ${(ex as Error).message}`;
+      logger.error(errorMessage);
+      return ServiceResponse.failure("Error while deleting AppCategory", null, StatusCodes.INTERNAL_SERVER_ERROR);
     }
   }
 }

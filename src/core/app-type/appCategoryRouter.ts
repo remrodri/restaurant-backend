@@ -40,3 +40,14 @@ appCategoryRegistry.registerPath({
 
 // appCategoryRouter.post("/", validateRequest(CreateAppCategorySchema), appCategoryController.createAppCategory)
 appCategoryRouter.post(`${route}/`, appCategoryController.createAppCategory);
+
+appCategoryRegistry.registerPath({
+  method: "delete",
+  path: "/api/v1/app-categories/{id}",
+  tags: ["AppCategory"],
+  request: { params: GetAppCategorySchema.shape.params },
+  // responses: createApiResponse(z.object({ message: z.string() }), "AppCategory deleted successfully", 204),
+  responses: createApiResponse(AppCategorySchema, "AppCategory deleted successfully", 204),
+});
+
+appCategoryRouter.delete(`${route}/:id`, appCategoryController.deleteAppCategory);
