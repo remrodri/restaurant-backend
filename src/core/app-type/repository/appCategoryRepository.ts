@@ -3,9 +3,14 @@ import type { IAppCategory } from "../interface/IAppCategory";
 import AppCategoryModel from "../models/AppCategoryModel";
 import type { IAppCategoryRepository } from "./IAppCategoryRepository";
 
-export class AppCategoryRepository implements IAppCategoryRepository {
-  updateAsync(id: string, appCategory: IAppCategory): Promise<IAppCategory | null> {
-    throw new Error("Method not implemented.");
+class AppCategoryRepository implements IAppCategoryRepository {
+  public async updateAsync(id: string, appCategory: IAppCategory): Promise<IAppCategory | null> {
+    // Use findByIdAndUpdate with new: true to return the updated document
+    return AppCategoryModel.findByIdAndUpdate(
+      id,
+      { $set: appCategory }, // Update with the new appCategory data
+      { new: true, runValidators: true }, // Options: return the updated document, run schema validators
+    );
   }
   deleteAsync(id: string): Promise<IAppCategory | null> {
     throw new Error("Method not implemented.");
@@ -28,4 +33,4 @@ export class AppCategoryRepository implements IAppCategoryRepository {
   }
 }
 
-export const appCategoryRepository = new AppCategoryRepository();
+export default AppCategoryRepository;
