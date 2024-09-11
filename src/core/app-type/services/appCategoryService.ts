@@ -36,10 +36,6 @@ class AppCategoryService implements IAppCategoryService {
     }
   }
 
-  deleteAppCategory(id: string): Promise<IAppCategory | null> {
-    throw new Error("Method not implemented.");
-  }
-
   public async getAppCategoryById(id: string): Promise<ServiceResponse<IAppCategory | null>> {
     try {
       const appCategory = await this.repository.findByIdAsync(id);
@@ -84,6 +80,21 @@ class AppCategoryService implements IAppCategoryService {
         null,
         StatusCodes.INTERNAL_SERVER_ERROR,
       );
+    }
+  }
+
+  public async deleteAppCategory(id: string): Promise<ServiceResponse<IAppCategory | null>> {
+    try {
+      const deletedAppCategory = await this.repository.deleteAsync(id);
+      if (!deletedAppCategory) {
+        return ServiceResponse.failure(`AppCategory with id ${id} not found`, null, StatusCodes.NOT_FOUND);
+      }
+      logger.info(`AppCategory with id ${id} deleted succesfully`);
+      return ServiceResponse.success("AppCategory deleted succesfully", deletedAppCategory);
+    } catch (ex) {
+      const errorMessage = `Error deleting appCategory ${id}: ${(ex as Error).message}`;
+      logger.error(errorMessage);
+      return ServiceResponse.failure("Error while deleting AppCategory", null, StatusCodes.INTERNAL_SERVER_ERROR);
     }
   }
 }

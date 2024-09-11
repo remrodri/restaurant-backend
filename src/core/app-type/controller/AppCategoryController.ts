@@ -1,6 +1,7 @@
 import { handleServiceResponse } from "@/common/utils/httpHandlers";
 import type { IAppCategoryService } from "@/core/app-type/services/IAppCategoryService";
 import type { Request, RequestHandler, Response } from "express";
+import { deleteAppCategory } from "../models/AppCategorySchema";
 
 class AppCategoryController {
   private service: IAppCategoryService;
@@ -33,6 +34,12 @@ class AppCategoryController {
     const serviceResponse = await this.service.updateAppCategory(id, appCategory);
 
     // Handle the response with the utility function
+    return handleServiceResponse(serviceResponse, res);
+  };
+
+  public deleteAppCategory: RequestHandler = async (req: Request, res: Response) => {
+    const id = req.params.id;
+    const serviceResponse = await this.service.deleteAppCategory(id);
     return handleServiceResponse(serviceResponse, res);
   };
 }

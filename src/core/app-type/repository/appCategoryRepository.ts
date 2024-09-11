@@ -12,9 +12,6 @@ class AppCategoryRepository implements IAppCategoryRepository {
       { new: true, runValidators: true }, // Options: return the updated document, run schema validators
     );
   }
-  deleteAsync(id: string): Promise<IAppCategory | null> {
-    throw new Error("Method not implemented.");
-  }
 
   public async findByIdAsync(id: string): Promise<IAppCategory | null> {
     const result = await AppCategoryModel.findById(id).exec();
@@ -30,6 +27,11 @@ class AppCategoryRepository implements IAppCategoryRepository {
   public async createAsync(appCategory: IAppCategory): Promise<IAppCategory> {
     const newAppCategory = new AppCategoryModel(appCategory);
     return await newAppCategory.save();
+  }
+
+  public async deleteAsync(id: string): Promise<IAppCategory | null> {
+    const result = await AppCategoryModel.findByIdAndDelete(id).exec();
+    return result;
   }
 }
 

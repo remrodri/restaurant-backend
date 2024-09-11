@@ -6,5 +6,5 @@ export interface IAppCategoryService {
   getAllAppCategories(): Promise<ServiceResponse<IAppCategory[] | null>>;
   createAppCategory(appCategory: IAppCategory): Promise<ServiceResponse<IAppCategory | null>>;
   updateAppCategory(id: string, appCategory: IAppCategory): Promise<ServiceResponse<IAppCategory | null>>;
-  deleteAppCategory(id: string): Promise<IAppCategory | null>;
+  deleteAppCategory(id: string): Promise<ServiceResponse<IAppCategory | null>>;
 }
